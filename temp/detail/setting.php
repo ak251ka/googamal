@@ -1,0 +1,1 @@
+<?php  require_once('lib/dbo.php');  require_once('lib/session.php');  var_dump(1);  ?>

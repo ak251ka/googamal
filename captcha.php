@@ -1,0 +1,2 @@
+<?php  session_start();  header("Content-Type: image/png");  mb_internal_encoding('UTF-8');  $font = 'css/fonts/arial.ttf';  $text = isset($_SESSION['cap']) ? $_SESSION['cap'] : 'UNKOWN???';  $im = imagecreatetruecolor(100, 20) or die("Cannot Initialize new GD image stream");  $black = imagecolorallocate($im, 0, 0, 0);  $white = imagecolorallocate($im, 255, 255, 255);  imagefilledrectangle($im, 0, 0, 299, 299, $white);  imagettftext($im, 15, 0, 5, 15, $black, $font,$text);  imagepng($im);  imagedestroy($im);  ?> 
+ 

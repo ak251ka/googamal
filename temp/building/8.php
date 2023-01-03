@@ -1,0 +1,3 @@
+<div class="b_troop">
+<?php  require_once('.//lib/dbo.php');  $limits = $dbo->ExectueScaler(   sprintf('SELECT `func` FROM `%sbuilding_d` WHERE `bid` =\'%s\' AND `lvl` = \'%s\'',DB_PERFIX,$town->$b, $town->$u + 1),'func');  printf($lang['AllPoint'].'<br />',$town->l2);  if($town->$u != $info['lvl'])   printf($lang['NextPoint'],$limits + $town->l2);  else   printf($lang['LevelPoint'].'<br />',$town->l2);  ?>
+</div>

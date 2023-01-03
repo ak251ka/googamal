@@ -1,0 +1,8 @@
+<?php  require_once('eng/forum/topic.php');  require_once('.//eng/forum/post.php');  require_once('lib/form.php');  if(isset($_GET['uid']) and is_numeric($_GET['uid']))   $uid = (int)$_GET['uid'];  else   $uid = $account->uid;    if(!$uid or !isset($_GET['id']))   $session->Href('block.php');     $topic->Load($uid);    $t = $topic->Topics($_GET['id']);  if(!$t or !$topic->IsMember($session->pid, $t->id))   $session->Href('block.php');  $post = new Post($t->id);  $ed = $post->LoadPost($_GET['poid']);  if(is_null($ed) or !$ed->IsLoad())   $session->Href('block.php');  if(!empty($_POST))  {   if($_POST['com'] == 'ed')   {    $ed->message = $_POST['msg'];    $post->EditPost($ed, $account->id, $account->name);    $session->Href('forum.php?show='.POST.'&uid='.$uid.'&id='.$t->id.'&last='.$ed->id);   }   elseif($_POST['com'] = 'del')   {    $post->DelPost($ed, $account->id, $account->name);    $session->Href('forum.php?show='.POST.'&uid='.$uid.'&id='.$t->id.'&last='.$ed->id);   }  }  ?>
+<form action="<?php echo 'forum.php?show='.E_POST.'&amp;uid'.$uid.'&amp;id='.$t->id.'&amp;poid='.$ed->id;?>" method="post">
+<input type="hidden" id = "com" name="com" value="<?php N_POST?>" />
+<textarea name="msg" id = "msg"><?php echo $ed->message;?></textarea>
+<input type="submit" value="<?php echo $lang['Save'];?>" onclick="SetValues('com','ed');" />
+<input type="submit" value="<?php echo $lang['Delete'];?>" onclick="SetValues('com','del');" />
+</form>
+<div class="center"><?php echo $form->Ahref('/forum.php?show='.POST.'&amp;uid='.$uid.'&amp;id='.$t->id.'&amp;last='.$ed->id,$lang['Return']);?></div>
